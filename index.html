@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kuis Passion IT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .question {
+            margin: 20px 0;
+            font-size: 20px;
+            color: #333;
+        }
+        .option {
+            display: block;
+            margin: 10px auto;
+            padding: 12px 20px;
+            width: 80%;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .option:hover {
+            background: #45a049;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Kuis Passion IT</h1>
+        <p>Temukan karir IT yang cocok untukmu!</p>
+        
+        <div id="quiz">
+            <!-- Pertanyaan akan muncul di sini -->
+        </div>
+    </div>
+    
+    <script>
+        const questions = [
+            {
+                question: "Apa kegiatan yang paling kamu nikmati?",
+                options: [
+                    "Membuat program atau aplikasi",
+                    "Mendesain tampilan website/app yang indah", 
+                    "Menganalisis data untuk menemukan pola"
+                ]
+            },
+            {
+                question: "Ketika ada masalah, kamu lebih suka?",
+                options: [
+                    "Mencari solusi dengan coding",
+                    "Memikirkan cara membuat pengalaman pengguna lebih baik",
+                    "Melihat data untuk memahami akar masalah"
+                ]
+            },
+            {
+                question: "Aplikasi favoritmu?",
+                options: [
+                    "Visual Studio Code / GitHub",
+                    "Figma / Adobe Photoshop",
+                    "Excel / Tableau / Python"
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let scores = [0, 0, 0];
+        const careerNames = ["Programmer", "UI/UX Designer", "Data Scientist"];
+
+        function showQuestion() {
+            const quizDiv = document.getElementById('quiz');
+            const q = questions[currentQuestion];
+            
+            let html = `<div class="question">Pertanyaan ${currentQuestion + 1}/${questions.length}: ${q.question}</div>`;
+            
+            q.options.forEach((option, index) => {
+                html += `<button class="option" onclick="selectOption(${index})">${option}</button>`;
+            });
+            
+            quizDiv.innerHTML = html;
+        }
+
+        function selectOption(selectedIndex) {
+            scores[selectedIndex]++;
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            let maxScore = 0;
+            let careerIndex = 0;
+            
+            for (let i = 0; i < scores.length; i++) {
+                if (scores[i] > maxScore) {
+                    maxScore = scores[i];
+                    careerIndex = i;
+                }
+            }
+            
+            const career = careerNames[careerIndex];
+            let description = "";
+            
+            if (careerIndex === 0) {
+                description = "💻 Kamu suka membangun sesuatu dengan kode! Cocok jadi Programmer.";
+            } else if (careerIndex === 1) {
+                description = "🎨 Kamu peduli dengan estetika dan pengalaman pengguna! Cocok jadi UI/UX Designer.";
+            } else {
+                description = "📊 Kamu senang mengolah data dan mencari insight! Cocok jadi Data Scientist.";
+            }
+            
+            document.getElementById('quiz').innerHTML = `
+                <h2>🎉 Hasil Kuis</h2>
+                <h3>Passion kamu: <strong>${career}</strong></h3>
+                <p>${description}</p>
+                <button class="option" onclick="location.reload()">🔄 Coba Lagi</button>
+            `;
+        }
+
+        // Mulai kuis
+        showQuestion();
+    </script>
+</body>
+</html>
