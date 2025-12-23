@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Siapakah Kamu? - Mini Personality Quiz</title>
     <style>
+        /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -21,6 +22,7 @@
             padding: 20px;
         }
         
+        /* ===== CONTAINER ===== */
         .container {
             width: 100%;
             max-width: 800px;
@@ -30,6 +32,7 @@
             overflow: hidden;
         }
         
+        /* ===== HEADER ===== */
         .header {
             background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
             color: white;
@@ -48,10 +51,12 @@
             opacity: 0.9;
         }
         
+        /* ===== QUIZ CONTAINER ===== */
         .quiz-container {
             padding: 40px;
         }
         
+        /* ===== QUESTION CARD ===== */
         .question {
             background: #f8f9fa;
             border-left: 5px solid #ff6b6b;
@@ -87,6 +92,7 @@
             line-height: 1.5;
         }
         
+        /* ===== OPTIONS ===== */
         .options {
             display: grid;
             gap: 15px;
@@ -122,6 +128,7 @@
             font-size: 1.8rem;
         }
         
+        /* ===== BUTTONS ===== */
         .result-btn {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
@@ -155,6 +162,7 @@
             content: " ✨";
         }
         
+        /* ===== RESULT CONTAINER ===== */
         .result-container {
             display: none;
             padding: 40px;
@@ -226,6 +234,7 @@
             transform: scale(1.05);
         }
         
+        /* ===== PROGRESS BAR ===== */
         .progress-container {
             padding: 0 40px 20px;
         }
@@ -252,6 +261,7 @@
             border-radius: 4px;
         }
         
+        /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
             .container {
                 margin: 10px;
@@ -273,16 +283,45 @@
                 font-size: 1rem;
                 padding: 15px;
             }
+            
+            .result-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-number {
+                font-size: 1.5rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .result-title {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- HEADER -->
         <div class="header">
             <h1>Siapakah Kamu?</h1>
             <p>Mini Personality Quiz - Temukan jati diri IT-mu!</p>
         </div>
         
+        <!-- PROGRESS BAR -->
         <div class="progress-container">
             <div class="progress-text">Progress: <span id="progress-text">0/3</span></div>
             <div class="progress-bar">
@@ -290,16 +329,19 @@
             </div>
         </div>
         
+        <!-- QUIZ CONTAINER -->
         <div class="quiz-container" id="quiz-container">
-            <!-- Pertanyaan akan ditampilkan di sini -->
+            <!-- Pertanyaan akan ditampilkan di sini oleh JavaScript -->
         </div>
         
+        <!-- RESULT CONTAINER (Awalnya tersembunyi) -->
         <div class="result-container" id="result-container">
-            <!-- Hasil akan ditampilkan di sini -->
+            <!-- Hasil akan ditampilkan di sini oleh JavaScript -->
         </div>
     </div>
 
     <script>
+        // ===== DATA PERTANYAAN =====
         const questions = [
             {
                 number: 1,
@@ -330,6 +372,7 @@
             }
         ];
 
+        // ===== DATA TIPE KEPRIBADIAN =====
         const personalityTypes = {
             programmer: {
                 title: "The Coder 👨‍💻",
@@ -357,6 +400,7 @@
             }
         };
 
+        // ===== VARIABEL GLOBAL =====
         let currentQuestion = 0;
         let answers = {
             programmer: 0,
@@ -365,6 +409,7 @@
         };
         let selectedOptions = [];
 
+        // ===== FUNGSI UPDATE PROGRESS BAR =====
         function updateProgress() {
             const progressText = document.getElementById('progress-text');
             const progressFill = document.getElementById('progress-fill');
@@ -374,6 +419,7 @@
             progressFill.style.width = `${progress}%`;
         }
 
+        // ===== FUNGSI TAMPILKAN PERTANYAAN =====
         function displayQuestion() {
             const quizContainer = document.getElementById('quiz-container');
             const question = questions[currentQuestion];
@@ -405,7 +451,15 @@
             updateProgress();
         }
 
+        // ===== FUNGSI PILIH JAWABAN =====
         function selectOption(optionIndex) {
+            // Reset score untuk pertanyaan ini jika sudah pernah dipilih
+            if (selectedOptions[currentQuestion] !== undefined) {
+                const prevIndex = selectedOptions[currentQuestion];
+                const prevType = questions[currentQuestion].options[prevIndex].type;
+                answers[prevType]--;
+            }
+            
             selectedOptions[currentQuestion] = optionIndex;
             
             const question = questions[currentQuestion];
@@ -416,6 +470,7 @@
             displayQuestion();
         }
 
+        // ===== FUNGSI LANJUT KE PERTANYAAN BERIKUTNYA =====
         function nextQuestion() {
             if (selectedOptions[currentQuestion] === undefined) {
                 alert("Pilih salah satu jawaban dulu ya!");
@@ -426,12 +481,14 @@
             displayQuestion();
         }
 
+        // ===== FUNGSI TAMPILKAN HASIL =====
         function showResult() {
             if (selectedOptions[currentQuestion] === undefined) {
                 alert("Pilih jawaban untuk pertanyaan terakhir dulu ya!");
                 return;
             }
             
+            // Hitung tipe kepribadian dengan skor tertinggi
             let maxScore = 0;
             let personalityType = "programmer";
             
@@ -446,9 +503,11 @@
             const quizContainer = document.getElementById('quiz-container');
             const resultContainer = document.getElementById('result-container');
             
+            // Sembunyikan kuis, tampilkan hasil
             quizContainer.style.display = 'none';
             resultContainer.style.display = 'block';
             
+            // Generate HTML untuk hasil
             resultContainer.innerHTML = `
                 <div class="result-icon">${result.emoji}</div>
                 <div class="result-title">${result.title}</div>
@@ -462,7 +521,7 @@
                 </div>
                 
                 <div style="margin: 30px 0;">
-                    <h3 style="color: #666; margin-bottom: 15px;">📊 Skor Kamu:</h3>
+                    <h3 style="color: #666; margin-bottom: 15px;">📊 Skor Detail:</h3>
                     <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
                         <div style="padding: 15px; background: #f0f7ff; border-radius: 10px; min-width: 120px;">
                             <div style="font-size: 2rem;">💻</div>
@@ -486,7 +545,9 @@
             `;
         }
 
+        // ===== FUNGSI RESTART KUIZ =====
         function restartQuiz() {
+            // Reset semua variabel
             currentQuestion = 0;
             answers = { programmer: 0, designer: 0, analyst: 0 };
             selectedOptions = [];
@@ -494,14 +555,17 @@
             const quizContainer = document.getElementById('quiz-container');
             const resultContainer = document.getElementById('result-container');
             
+            // Tampilkan kuis, sembunyikan hasil
             resultContainer.style.display = 'none';
             quizContainer.style.display = 'block';
             
+            // Tampilkan pertanyaan pertama
             displayQuestion();
         }
 
-        // Inisialisasi kuis
+        // ===== INISIALISASI KUIZ =====
+        // Tampilkan pertanyaan pertama saat halaman dimuat
         displayQuestion();
     </script>
 </body>
-</html>
+</html>                          
