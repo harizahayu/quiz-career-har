@@ -1,145 +1,507 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Kuis Passion IT</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siapakah Kamu? - Mini Personality Quiz</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
+        
         .container {
-            max-width: 600px;
-            margin: 0 auto;
+            width: 100%;
+            max-width: 800px;
             background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
         }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .quiz-container {
+            padding: 40px;
+        }
+        
         .question {
-            margin: 20px 0;
-            font-size: 20px;
-            color: #333;
+            background: #f8f9fa;
+            border-left: 5px solid #ff6b6b;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
+        
+        .question:hover {
+            transform: translateY(-5px);
+        }
+        
+        .question-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .question-number::before {
+            content: "🎯";
+        }
+        
+        .question-text {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .options {
+            display: grid;
+            gap: 15px;
+        }
+        
         .option {
-            display: block;
-            margin: 10px auto;
-            padding: 12px 20px;
-            width: 80%;
-            background: #4CAF50;
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 18px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #333;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .option:hover {
+            border-color: #ff6b6b;
+            background: #fff5f5;
+            transform: translateX(10px);
+        }
+        
+        .option.selected {
+            border-color: #ff6b6b;
+            background: #fff5f5;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+        }
+        
+        .option-emoji {
+            font-size: 1.8rem;
+        }
+        
+        .result-btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
             border: none;
-            border-radius: 5px;
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 16px;
+            display: block;
+            margin: 40px auto 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.3);
+            letter-spacing: 1px;
         }
-        .option:hover {
-            background: #45a049;
+        
+        .result-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
         }
-        h1 {
+        
+        .result-btn:active {
+            transform: translateY(0);
+        }
+        
+        .result-btn::before {
+            content: "✨ ";
+        }
+        
+        .result-btn::after {
+            content: " ✨";
+        }
+        
+        .result-container {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+        
+        .result-title {
+            font-size: 2.5rem;
             color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .result-subtitle {
+            font-size: 1.3rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        .result-desc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: left;
+            border-left: 5px solid #4facfe;
+        }
+        
+        .restart-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .restart-btn::before {
+            content: "🔄";
+        }
+        
+        .restart-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .progress-container {
+            padding: 0 40px 20px;
+        }
+        
+        .progress-text {
+            color: #666;
+            font-size: 1rem;
+            text-align: right;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .quiz-container, .result-container {
+                padding: 20px;
+            }
+            
+            .question-text {
+                font-size: 1.2rem;
+            }
+            
+            .option {
+                font-size: 1rem;
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎯 Kuis Passion IT</h1>
-        <p>Temukan karir IT yang cocok untukmu!</p>
+        <div class="header">
+            <h1>Siapakah Kamu?</h1>
+            <p>Mini Personality Quiz - Temukan jati diri IT-mu!</p>
+        </div>
         
-        <div id="quiz">
-            <!-- Pertanyaan akan muncul di sini -->
+        <div class="progress-container">
+            <div class="progress-text">Progress: <span id="progress-text">0/3</span></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        
+        <div class="quiz-container" id="quiz-container">
+            <!-- Pertanyaan akan ditampilkan di sini -->
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <!-- Hasil akan ditampilkan di sini -->
         </div>
     </div>
-    
+
     <script>
         const questions = [
             {
-                question: "Apa kegiatan yang paling kamu nikmati?",
+                number: 1,
+                question: "Kamu paling suka ngapain?",
                 options: [
-                    "Membuat program atau aplikasi",
-                    "Mendesain tampilan website/app yang indah", 
-                    "Menganalisis data untuk menemukan pola"
+                    { text: "Ngoding sampai lupa waktu", emoji: "💻", type: "programmer" },
+                    { text: "Bikin layout & warna yang estetik", emoji: "🎨", type: "designer" },
+                    { text: "Main data dan analisa tren", emoji: "📊", type: "analyst" }
                 ]
             },
             {
-                question: "Ketika ada masalah, kamu lebih suka?",
+                number: 2,
+                question: "Kamu lebih suka alat yang mana?",
                 options: [
-                    "Mencari solusi dengan coding",
-                    "Memikirkan cara membuat pengalaman pengguna lebih baik",
-                    "Melihat data untuk memahami akar masalah"
+                    { text: "VS Code", emoji: "🔧", type: "programmer" },
+                    { text: "Figma", emoji: "✏️", type: "designer" },
+                    { text: "Google Colab", emoji: "📈", type: "analyst" }
                 ]
             },
             {
-                question: "Aplikasi favoritmu?",
+                number: 3,
+                question: "Motto kamu?",
                 options: [
-                    "Visual Studio Code / GitHub",
-                    "Figma / Adobe Photoshop",
-                    "Excel / Tableau / Python"
+                    { text: "Keep calm and debug the code", emoji: "🐛", type: "programmer" },
+                    { text: "Design is thinking made visual", emoji: "👁️", type: "designer" },
+                    { text: "In data we trust", emoji: "📋", type: "analyst" }
                 ]
             }
         ];
 
-        let currentQuestion = 0;
-        let scores = [0, 0, 0];
-        const careerNames = ["Programmer", "UI/UX Designer", "Data Scientist"];
+        const personalityTypes = {
+            programmer: {
+                title: "The Coder 👨‍💻",
+                subtitle: "Tech Wizard & Problem Solver",
+                emoji: "👨‍💻",
+                description: "Kamu adalah seorang penyelesai masalah yang handal! Dengan kemampuan coding-mu, kamu bisa membangun apapun dari nol. Kamu suka tantangan teknis dan tidak takut dengan bug-bug yang muncul. Logika adalah senjatamu, dan setiap error adalah teka-teki yang harus dipecahkan. Dunia digital adalah kanvasmu!",
+                strengths: ["Logika kuat", "Detail-oriented", "Problem solving"],
+                color: "#4facfe"
+            },
+            designer: {
+                title: "The Designer 🎨",
+                subtitle: "Visual Artist & User Advocate",
+                emoji: "🎨",
+                description: "Kamu adalah seorang seniman digital yang memperhatikan setiap detail visual! Kamu percaya bahwa desain yang baik bukan hanya tentang keindahan, tapi juga tentang pengalaman pengguna. Warna, tipografi, dan layout adalah alat-alatmu untuk menciptakan dunia digital yang menyenangkan dan mudah digunakan.",
+                strengths: ["Kreativitas tinggi", "Empati pengguna", "Sense of aesthetics"],
+                color: "#ff6b6b"
+            },
+            analyst: {
+                title: "The Analyst 📊",
+                subtitle: "Data Detective & Insight Miner",
+                emoji: "📊",
+                description: "Kamu adalah seorang detektif data yang selalu mencari pola dan insight tersembunyi! Bagi kamu, data adalah cerita yang menunggu untuk ditulis. Kamu suka mengolah angka, membuat visualisasi, dan menarik kesimpulan yang bisa membantu pengambilan keputusan. Data tidak pernah bohong, dan kamu tahu cara membuatnya berbicara!",
+                strengths: ["Analitis", "Critical thinking", "Data-driven"],
+                color: "#00f2fe"
+            }
+        };
 
-        function showQuestion() {
-            const quizDiv = document.getElementById('quiz');
-            const q = questions[currentQuestion];
+        let currentQuestion = 0;
+        let answers = {
+            programmer: 0,
+            designer: 0,
+            analyst: 0
+        };
+        let selectedOptions = [];
+
+        function updateProgress() {
+            const progressText = document.getElementById('progress-text');
+            const progressFill = document.getElementById('progress-fill');
+            const progress = ((currentQuestion) / questions.length) * 100;
             
-            let html = `<div class="question">Pertanyaan ${currentQuestion + 1}/${questions.length}: ${q.question}</div>`;
-            
-            q.options.forEach((option, index) => {
-                html += `<button class="option" onclick="selectOption(${index})">${option}</button>`;
-            });
-            
-            quizDiv.innerHTML = html;
+            progressText.textContent = `${currentQuestion}/${questions.length}`;
+            progressFill.style.width = `${progress}%`;
         }
 
-        function selectOption(selectedIndex) {
-            scores[selectedIndex]++;
-            currentQuestion++;
+        function displayQuestion() {
+            const quizContainer = document.getElementById('quiz-container');
+            const question = questions[currentQuestion];
             
-            if (currentQuestion < questions.length) {
-                showQuestion();
-            } else {
-                showResult();
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = selectedOptions[currentQuestion] === index;
+                optionsHTML += `
+                    <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption(${index})">
+                        <span class="option-emoji">${option.emoji}</span>
+                        <span>${option.text}</span>
+                    </div>
+                `;
+            });
+            
+            quizContainer.innerHTML = `
+                <div class="question">
+                    <div class="question-number">Pertanyaan ${question.number}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">
+                        ${optionsHTML}
+                    </div>
+                </div>
+                ${currentQuestion === questions.length - 1 ? 
+                    '<button class="result-btn" onclick="showResult()">Liat Hasil</button>' : 
+                    '<button class="result-btn" onclick="nextQuestion()">Lanjut</button>'}
+            `;
+            
+            updateProgress();
+        }
+
+        function selectOption(optionIndex) {
+            selectedOptions[currentQuestion] = optionIndex;
+            
+            const question = questions[currentQuestion];
+            const selectedType = question.options[optionIndex].type;
+            
+            answers[selectedType]++;
+            
+            displayQuestion();
+        }
+
+        function nextQuestion() {
+            if (selectedOptions[currentQuestion] === undefined) {
+                alert("Pilih salah satu jawaban dulu ya!");
+                return;
             }
+            
+            currentQuestion++;
+            displayQuestion();
         }
 
         function showResult() {
-            let maxScore = 0;
-            let careerIndex = 0;
+            if (selectedOptions[currentQuestion] === undefined) {
+                alert("Pilih jawaban untuk pertanyaan terakhir dulu ya!");
+                return;
+            }
             
-            for (let i = 0; i < scores.length; i++) {
-                if (scores[i] > maxScore) {
-                    maxScore = scores[i];
-                    careerIndex = i;
+            let maxScore = 0;
+            let personalityType = "programmer";
+            
+            for (const [type, score] of Object.entries(answers)) {
+                if (score > maxScore) {
+                    maxScore = score;
+                    personalityType = type;
                 }
             }
             
-            const career = careerNames[careerIndex];
-            let description = "";
+            const result = personalityTypes[personalityType];
+            const quizContainer = document.getElementById('quiz-container');
+            const resultContainer = document.getElementById('result-container');
             
-            if (careerIndex === 0) {
-                description = "💻 Kamu suka membangun sesuatu dengan kode! Cocok jadi Programmer.";
-            } else if (careerIndex === 1) {
-                description = "🎨 Kamu peduli dengan estetika dan pengalaman pengguna! Cocok jadi UI/UX Designer.";
-            } else {
-                description = "📊 Kamu senang mengolah data dan mencari insight! Cocok jadi Data Scientist.";
-            }
+            quizContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
             
-            document.getElementById('quiz').innerHTML = `
-                <h2>🎉 Hasil Kuis</h2>
-                <h3>Passion kamu: <strong>${career}</strong></h3>
-                <p>${description}</p>
-                <button class="option" onclick="location.reload()">🔄 Coba Lagi</button>
+            resultContainer.innerHTML = `
+                <div class="result-icon">${result.emoji}</div>
+                <div class="result-title">${result.title}</div>
+                <div class="result-subtitle">${result.subtitle}</div>
+                
+                <div class="result-desc">
+                    ${result.description}
+                    <br><br>
+                    <strong>💪 Kelebihan Kamu:</strong><br>
+                    ${result.strengths.map(strength => `• ${strength}`).join('<br>')}
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h3 style="color: #666; margin-bottom: 15px;">📊 Skor Kamu:</h3>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <div style="padding: 15px; background: #f0f7ff; border-radius: 10px; min-width: 120px;">
+                            <div style="font-size: 2rem;">💻</div>
+                            <div style="font-weight: bold;">${answers.programmer}</div>
+                            <div style="color: #666;">Programmer</div>
+                        </div>
+                        <div style="padding: 15px; background: #fff0f0; border-radius: 10px; min-width: 120px;">
+                            <div style="font-size: 2rem;">🎨</div>
+                            <div style="font-weight: bold;">${answers.designer}</div>
+                            <div style="color: #666;">Designer</div>
+                        </div>
+                        <div style="padding: 15px; background: #f0fffd; border-radius: 10px; min-width: 120px;">
+                            <div style="font-size: 2rem;">📊</div>
+                            <div style="font-weight: bold;">${answers.analyst}</div>
+                            <div style="color: #666;">Analyst</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="restart-btn" onclick="restartQuiz()">Mulai Lagi</button>
             `;
         }
 
-        // Mulai kuis
-        showQuestion();
+        function restartQuiz() {
+            currentQuestion = 0;
+            answers = { programmer: 0, designer: 0, analyst: 0 };
+            selectedOptions = [];
+            
+            const quizContainer = document.getElementById('quiz-container');
+            const resultContainer = document.getElementById('result-container');
+            
+            resultContainer.style.display = 'none';
+            quizContainer.style.display = 'block';
+            
+            displayQuestion();
+        }
+
+        // Inisialisasi kuis
+        displayQuestion();
     </script>
 </body>
 </html>
