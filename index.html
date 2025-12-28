@@ -3,569 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siapakah Kamu? - Mini Personality Quiz</title>
+    <title>Job IT Explorer - Aplikasi Tanya Jawab Karir IT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        
-        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
-        
-        /* ===== CONTAINER ===== */
-        .container {
-            width: 100%;
-            max-width: 800px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        
-        /* ===== HEADER ===== */
-        .header {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-            color: white;
-            padding: 30px;
+
+        header {
             text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #1a73e8 0%, #6c8ef5 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .header h1 {
+
+        header h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
-        /* ===== QUIZ CONTAINER ===== */
-        .quiz-container {
-            padding: 40px;
-        }
-        
-        /* ===== QUESTION CARD ===== */
-        .question {
-            background: #f8f9fa;
-            border-left: 5px solid #ff6b6b;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .question:hover {
-            transform: translateY(-5px);
-        }
-        
-        .question-number {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ff6b6b;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .question-number::before {
-            content: "🎯";
-        }
-        
-        .question-text {
-            font-size: 1.4rem;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            line-height: 1.5;
-        }
-        
-        /* ===== OPTIONS ===== */
-        .options {
-            display: grid;
-            gap: 15px;
-        }
-        
-        .option {
-            background: white;
-            border: 2px solid #e0e0e0;
-            padding: 18px 20px;
-            border-radius: 10px;
-            cursor: pointer;
+
+        header p {
             font-size: 1.1rem;
-            color: #333;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        
-        .option:hover {
-            border-color: #ff6b6b;
-            background: #fff5f5;
-            transform: translateX(10px);
-        }
-        
-        .option.selected {
-            border-color: #ff6b6b;
-            background: #fff5f5;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
-        }
-        
-        .option-emoji {
-            font-size: 1.8rem;
-        }
-        
-        /* ===== BUTTONS ===== */
-        .result-btn {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border-radius: 50px;
-            cursor: pointer;
-            display: block;
-            margin: 40px auto 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(79, 172, 254, 0.3);
-            letter-spacing: 1px;
-        }
-        
-        .result-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
-        }
-        
-        .result-btn:active {
-            transform: translateY(0);
-        }
-        
-        .result-btn::before {
-            content: "✨ ";
-        }
-        
-        .result-btn::after {
-            content: " ✨";
-        }
-        
-        /* ===== RESULT CONTAINER ===== */
-        .result-container {
-            display: none;
-            padding: 40px;
+
+        .app-description {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             text-align: center;
-            animation: fadeIn 0.8s ease;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
         }
-        
-        .result-icon {
-            font-size: 5rem;
-            margin-bottom: 20px;
-            animation: bounce 1s infinite alternate;
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
         }
-        
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-20px); }
-        }
-        
-        .result-title {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        
-        .result-subtitle {
-            font-size: 1.3rem;
-            color: #ff6b6b;
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
-        
-        .result-desc {
-            background: #f8f9fa;
+
+        .faq-section {
+            background-color: white;
+            border-radius: 10px;
             padding: 25px;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 30px;
-            text-align: left;
-            border-left: 5px solid #4facfe;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
         }
-        
-        .restart-btn {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+
+        .faq-section h2 {
+            color: #1a73e8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
         }
-        
-        .restart-btn::before {
-            content: "🔄";
-        }
-        
-        .restart-btn:hover {
-            transform: scale(1.05);
-        }
-        
-        /* ===== PROGRESS BAR ===== */
-        .progress-container {
-            padding: 0 40px 20px;
-        }
-        
-        .progress-text {
-            color: #666;
-            font-size: 1rem;
-            text-align: right;
-            margin-bottom: 5px;
-        }
-        
-        .progress-bar {
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
+
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
             overflow: hidden;
         }
-        
-        .progress-fill {
+
+        .faq-question {
+            background-color: #f8f9fa;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: #e9f1fe;
+        }
+
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active i {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s;
+        }
+
+        .faq-answer.show {
+            padding: 15px;
+            max-height: 500px;
+        }
+
+        .job-display {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .job-display h2 {
+            color: #1a73e8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .job-image-container {
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .job-image {
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
-            width: 0%;
-            transition: width 0.5s ease;
-            border-radius: 4px;
+            object-fit: cover;
+            transition: transform 0.5s;
         }
-        
-        /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-            
-            .quiz-container, .result-container {
-                padding: 20px;
-            }
-            
-            .question-text {
-                font-size: 1.2rem;
-            }
-            
-            .option {
-                font-size: 1rem;
-                padding: 15px;
-            }
-            
-            .result-btn {
-                padding: 15px 30px;
-                font-size: 1.1rem;
-            }
+
+        .job-image:hover {
+            transform: scale(1.03);
         }
-        
-        @media (max-width: 480px) {
-            .header {
-                padding: 20px;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .question-number {
-                font-size: 1.5rem;
-            }
-            
-            .question-text {
-                font-size: 1.1rem;
-            }
-            
-            .result-title {
-                font-size: 2rem;
-            }
+
+        .job-details {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .job-title {
+            font-size: 1.5rem;
+            color: #1a73e8;
+            margin-bottom: 10px;
+        }
+
+        .job-description {
+            margin-bottom: 15px;
+        }
+
+        .job-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background-color: #e9f1fe;
+            color: #1a73e8;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .search-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .search-box button:hover {
+            background-color: #0d62d9;
+        }
+
+        .job-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .job-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-card-image {
+            height: 150px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .job-card-content {
+            padding: 15px;
+        }
+
+        .job-card-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a73e8;
+        }
+
+        .job-card-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+        }
+
+        .highlight {
+            color: #1a73e8;
+            font-weight: 600;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- HEADER -->
-        <div class="header">
-            <h1>Siapakah Kamu?</h1>
-            <p>Mini Personality Quiz - Temukan jati diri IT-mu!</p>
-        </div>
-        
-        <!-- PROGRESS BAR -->
-        <div class="progress-container">
-            <div class="progress-text">Progress: <span id="progress-text">0/3</span></div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
+        <header>
+            <h1><i class="fas fa-laptop-code"></i> Job IT Explorer</h1>
+            <p>Aplikasi tanya jawab interaktif tentang berbagai profesi di bidang Teknologi Informasi beserta gambarnya</p>
+        </header>
+
+        <section class="app-description">
+            <p>Temukan informasi tentang berbagai karir di bidang IT, mulai dari tanggung jawab, skill yang dibutuhkan, hingga prospek karir. Klik pada pertanyaan untuk melihat jawabannya, atau pilih profesi IT untuk melihat detail dan gambar terkait.</p>
+        </section>
+
+        <section class="search-section">
+            <h2>Cari Profesi IT</h2>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Ketik nama profesi IT (contoh: Data Scientist, Frontend Developer)">
+                <button id="searchBtn"><i class="fas fa-search"></i> Cari</button>
             </div>
+            <div class="job-list" id="jobList">
+                <!-- Job cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <div class="main-content">
+            <section class="faq-section">
+                <h2><i class="fas fa-question-circle"></i> Pertanyaan Umum tentang Job IT</h2>
+                <div class="faq-container" id="faqContainer">
+                    <!-- FAQ items will be generated by JavaScript -->
+                </div>
+            </section>
+
+            <section class="job-display">
+                <h2><i class="fas fa-briefcase"></i> Profil Profesi IT</h2>
+                <div class="job-image-container">
+                    <img id="jobImage" class="job-image" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Software Developer">
+                </div>
+                <div class="job-details">
+                    <h3 id="jobTitle" class="job-title">Software Developer</h3>
+                    <p id="jobDescription" class="job-description">Software Developer adalah profesional yang merancang, mengembangkan, dan memelihara aplikasi perangkat lunak. Mereka menggunakan berbagai bahasa pemrograman dan teknologi untuk membuat solusi perangkat lunak yang memenuhi kebutuhan pengguna.</p>
+                    <p><strong>Gaji Rata-rata:</strong> <span id="jobSalary" class="highlight">Rp 8 - 20 juta/bulan</span></p>
+                    <p><strong>Prospek Karir:</strong> <span id="jobProspect" class="highlight">Sangat Tinggi</span></p>
+                    <div class="job-skills" id="jobSkills">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Database</span>
+                        <span class="skill-tag">Problem Solving</span>
+                    </div>
+                </div>
+            </section>
         </div>
-        
-        <!-- QUIZ CONTAINER -->
-        <div class="quiz-container" id="quiz-container">
-            <!-- Pertanyaan akan ditampilkan di sini oleh JavaScript -->
-        </div>
-        
-        <!-- RESULT CONTAINER (Awalnya tersembunyi) -->
-        <div class="result-container" id="result-container">
-            <!-- Hasil akan ditampilkan di sini oleh JavaScript -->
-        </div>
+
+        <footer>
+            <p>Job IT Explorer &copy; 2023 - Aplikasi Tanya Jawab Karir IT dengan Gambar</p>
+            <p>Semua gambar berasal dari sumber eksternal (Unsplash) dan digunakan untuk tujuan edukasi.</p>
+        </footer>
     </div>
 
     <script>
-        // ===== DATA PERTANYAAN =====
-        const questions = [
+        // Data profesi IT
+        const itJobs = [
             {
-                number: 1,
-                question: "Kamu paling suka ngapain?",
-                options: [
-                    { text: "Ngoding sampai lupa waktu", emoji: "💻", type: "programmer" },
-                    { text: "Bikin layout & warna yang estetik", emoji: "🎨", type: "designer" },
-                    { text: "Main data dan analisa tren", emoji: "📊", type: "analyst" }
-                ]
+                id: 1,
+                title: "Software Developer",
+                description: "Software Developer adalah profesional yang merancang, mengembangkan, dan memelihara aplikasi perangkat lunak. Mereka menggunakan berbagai bahasa pemrograman dan teknologi untuk membuat solusi perangkat lunak yang memenuhi kebutuhan pengguna.",
+                salary: "Rp 8 - 20 juta/bulan",
+                prospect: "Sangat Tinggi",
+                skills: ["JavaScript", "Python", "Java", "Database", "Problem Solving"],
+                image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
             },
             {
-                number: 2,
-                question: "Kamu lebih suka alat yang mana?",
-                options: [
-                    { text: "VS Code", emoji: "🔧", type: "programmer" },
-                    { text: "Figma", emoji: "✏️", type: "designer" },
-                    { text: "Google Colab", emoji: "📈", type: "analyst" }
-                ]
+                id: 2,
+                title: "Data Scientist",
+                description: "Data Scientist menganalisis dan menginterpretasi data kompleks untuk membantu perusahaan dalam pengambilan keputusan. Mereka menggunakan teknik statistik, machine learning, dan tools analisis data.",
+                salary: "Rp 12 - 25 juta/bulan",
+                prospect: "Sangat Tinggi",
+                skills: ["Python", "R", "Machine Learning", "Statistics", "Data Visualization"],
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
             },
             {
-                number: 3,
-                question: "Motto kamu?",
-                options: [
-                    { text: "Keep calm and debug the code", emoji: "🐛", type: "programmer" },
-                    { text: "Design is thinking made visual", emoji: "👁️", type: "designer" },
-                    { text: "In data we trust", emoji: "📋", type: "analyst" }
-                ]
+                id: 3,
+                title: "Cybersecurity Analyst",
+                description: "Cybersecurity Analyst bertugas melindungi sistem komputer dan jaringan dari ancaman keamanan siber. Mereka memantau jaringan, mendeteksi pelanggaran, dan mengimplementasikan langkah-langkah keamanan.",
+                salary: "Rp 10 - 22 juta/bulan",
+                prospect: "Tinggi",
+                skills: ["Network Security", "Ethical Hacking", "Firewall", "Incident Response", "Cryptography"],
+                image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+            },
+            {
+                id: 4,
+                title: "Cloud Engineer",
+                description: "Cloud Engineer mendesain, mengimplementasikan, dan mengelola infrastruktur cloud untuk organisasi. Mereka bekerja dengan platform cloud seperti AWS, Azure, atau Google Cloud.",
+                salary: "Rp 11 - 24 juta/bulan",
+                prospect: "Sangat Tinggi",
+                skills: ["AWS", "Azure", "Docker", "Kubernetes", "Linux"],
+                image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1172&q=80"
+            },
+            {
+                id: 5,
+                title: "UX/UI Designer",
+                description: "UX/UI Designer berfokus pada pengalaman pengguna dan antarmuka pengguna untuk aplikasi dan website. Mereka membuat desain yang menarik, fungsional, dan mudah digunakan.",
+                salary: "Rp 7 - 18 juta/bulan",
+                prospect: "Tinggi",
+                skills: ["Figma", "Adobe XD", "User Research", "Wireframing", "Prototyping"],
+                image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80"
+            },
+            {
+                id: 6,
+                title: "DevOps Engineer",
+                description: "DevOps Engineer menggabungkan pengembangan perangkat lunak dan operasi IT. Mereka mengotomatisasi proses, mengelola infrastruktur, dan memastikan pengiriman perangkat lunak yang cepat dan andal.",
+                salary: "Rp 12 - 26 juta/bulan",
+                prospect: "Sangat Tinggi",
+                skills: ["CI/CD", "Jenkins", "Ansible", "Terraform", "Monitoring"],
+                image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+            },
+            {
+                id: 7,
+                title: "Network Administrator",
+                description: "Network Administrator bertanggung jawab atas pemeliharaan dan pengoperasian jaringan komputer dalam organisasi. Mereka memastikan konektivitas jaringan yang stabil dan aman.",
+                salary: "Rp 7 - 16 juta/bulan",
+                prospect: "Sedang",
+                skills: ["Cisco", "TCP/IP", "Network Troubleshooting", "VPN", "Router/Switch"],
+                image: "https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+            },
+            {
+                id: 8,
+                title: "AI Engineer",
+                description: "AI Engineer mengembangkan dan menerapkan model kecerdasan buatan dan machine learning untuk menyelesaikan masalah bisnis yang kompleks.",
+                salary: "Rp 15 - 30 juta/bulan",
+                prospect: "Sangat Tinggi",
+                skills: ["Python", "TensorFlow", "PyTorch", "Deep Learning", "Neural Networks"],
+                image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
             }
         ];
 
-        // ===== DATA TIPE KEPRIBADIAN =====
-        const personalityTypes = {
-            programmer: {
-                title: "The Coder 👨‍💻",
-                subtitle: "Tech Wizard & Problem Solver",
-                emoji: "👨‍💻",
-                description: "Kamu adalah seorang penyelesai masalah yang handal! Dengan kemampuan coding-mu, kamu bisa membangun apapun dari nol. Kamu suka tantangan teknis dan tidak takut dengan bug-bug yang muncul. Logika adalah senjatamu, dan setiap error adalah teka-teki yang harus dipecahkan. Dunia digital adalah kanvasmu!",
-                strengths: ["Logika kuat", "Detail-oriented", "Problem solving"],
-                color: "#4facfe"
+        // Data FAQ
+        const faqData = [
+            {
+                question: "Apa saja profesi IT yang paling diminati saat ini?",
+                answer: "Profesi IT yang paling diminati saat ini antara lain: Data Scientist, AI Engineer, Cloud Engineer, Cybersecurity Analyst, dan DevOps Engineer. Profesi-profesi ini memiliki permintaan tinggi di industri dengan gaji yang kompetitif."
             },
-            designer: {
-                title: "The Designer 🎨",
-                subtitle: "Visual Artist & User Advocate",
-                emoji: "🎨",
-                description: "Kamu adalah seorang seniman digital yang memperhatikan setiap detail visual! Kamu percaya bahwa desain yang baik bukan hanya tentang keindahan, tapi juga tentang pengalaman pengguna. Warna, tipografi, dan layout adalah alat-alatmu untuk menciptakan dunia digital yang menyenangkan dan mudah digunakan.",
-                strengths: ["Kreativitas tinggi", "Empati pengguna", "Sense of aesthetics"],
-                color: "#ff6b6b"
+            {
+                question: "Skill apa saja yang diperlukan untuk karir di bidang IT?",
+                answer: "Skill yang diperlukan bervariasi tergantung profesi, namun secara umum: kemampuan pemrograman, pemahaman database, pengetahuan jaringan, kemampuan problem-solving, komunikasi, dan kemampuan belajar terus-menerus karena teknologi selalu berkembang."
             },
-            analyst: {
-                title: "The Analyst 📊",
-                subtitle: "Data Detective & Insight Miner",
-                emoji: "📊",
-                description: "Kamu adalah seorang detektif data yang selalu mencari pola dan insight tersembunyi! Bagi kamu, data adalah cerita yang menunggu untuk ditulis. Kamu suka mengolah angka, membuat visualisasi, dan menarik kesimpulan yang bisa membantu pengambilan keputusan. Data tidak pernah bohong, dan kamu tahu cara membuatnya berbicara!",
-                strengths: ["Analitis", "Critical thinking", "Data-driven"],
-                color: "#00f2fe"
+            {
+                question: "Berapa rata-rata gaji profesi IT di Indonesia?",
+                answer: "Gaji profesi IT di Indonesia bervariasi berdasarkan pengalaman dan spesialisasi. Untuk level entry-level biasanya Rp 5-10 juta/bulan, mid-level Rp 10-20 juta/bulan, dan senior/lead bisa mencapai Rp 20-40 juta/bulan atau lebih."
+            },
+            {
+                question: "Apakah perlu gelar sarjana untuk bekerja di bidang IT?",
+                answer: "Meskipun gelar sarjana di bidang komputer sering menjadi persyaratan, banyak perusahaan sekarang lebih fokus pada skill dan portofolio. Sertifikasi dan bootcamp juga dapat menjadi jalan alternatif untuk masuk ke industri IT."
+            },
+            {
+                question: "Bagaimana prospek karir IT dalam 5 tahun ke depan?",
+                answer: "Prospek karir IT sangat cerah dengan perkembangan teknologi seperti AI, cloud computing, dan IoT. Permintaan akan talenta IT diprediksi terus meningkat dengan munculnya profesi-profesi baru di bidang teknologi."
+            },
+            {
+                question: "Apakah pekerjaan IT bisa dilakukan secara remote?",
+                answer: "Ya, banyak pekerjaan IT yang dapat dilakukan secara remote, terutama yang berkaitan dengan pengembangan perangkat lunak, data analysis, dan desain. Tren remote work semakin meningkat pasca pandemi COVID-19."
             }
-        };
+        ];
 
-        // ===== VARIABEL GLOBAL =====
-        let currentQuestion = 0;
-        let answers = {
-            programmer: 0,
-            designer: 0,
-            analyst: 0
-        };
-        let selectedOptions = [];
-
-        // ===== FUNGSI UPDATE PROGRESS BAR =====
-        function updateProgress() {
-            const progressText = document.getElementById('progress-text');
-            const progressFill = document.getElementById('progress-fill');
-            const progress = ((currentQuestion) / questions.length) * 100;
-            
-            progressText.textContent = `${currentQuestion}/${questions.length}`;
-            progressFill.style.width = `${progress}%`;
-        }
-
-        // ===== FUNGSI TAMPILKAN PERTANYAAN =====
-        function displayQuestion() {
-            const quizContainer = document.getElementById('quiz-container');
-            const question = questions[currentQuestion];
-            
-            let optionsHTML = '';
-            question.options.forEach((option, index) => {
-                const isSelected = selectedOptions[currentQuestion] === index;
-                optionsHTML += `
-                    <div class="option ${isSelected ? 'selected' : ''}" onclick="selectOption(${index})">
-                        <span class="option-emoji">${option.emoji}</span>
-                        <span>${option.text}</span>
+        // Inisialisasi aplikasi
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render FAQ items
+            const faqContainer = document.getElementById('faqContainer');
+            faqData.forEach((faq, index) => {
+                const faqItem = document.createElement('div');
+                faqItem.className = 'faq-item';
+                faqItem.innerHTML = `
+                    <div class="faq-question" onclick="toggleFAQ(${index})">
+                        <span>${faq.question}</span>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>${faq.answer}</p>
                     </div>
                 `;
+                faqContainer.appendChild(faqItem);
+            });
+
+            // Render job cards
+            const jobList = document.getElementById('jobList');
+            itJobs.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job-card';
+                jobCard.innerHTML = `
+                    <img src="${job.image}" alt="${job.title}" class="job-card-image">
+                    <div class="job-card-content">
+                        <h4 class="job-card-title">${job.title}</h4>
+                        <p class="job-card-desc">${job.description.substring(0, 100)}...</p>
+                    </div>
+                `;
+                jobCard.addEventListener('click', () => displayJobDetails(job));
+                jobList.appendChild(jobCard);
+            });
+
+            // Setup search functionality
+            document.getElementById('searchBtn').addEventListener('click', searchJobs);
+            document.getElementById('searchInput').addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    searchJobs();
+                }
+            });
+        });
+
+        // Fungsi untuk menampilkan detail job
+        function displayJobDetails(job) {
+            document.getElementById('jobTitle').textContent = job.title;
+            document.getElementById('jobDescription').textContent = job.description;
+            document.getElementById('jobSalary').textContent = job.salary;
+            document.getElementById('jobProspect').textContent = job.prospect;
+            document.getElementById('jobImage').src = job.image;
+            document.getElementById('jobImage').alt = job.title;
+            
+            const jobSkillsContainer = document.getElementById('jobSkills');
+            jobSkillsContainer.innerHTML = '';
+            job.skills.forEach(skill => {
+                const skillTag = document.createElement('span');
+                skillTag.className = 'skill-tag';
+                skillTag.textContent = skill;
+                jobSkillsContainer.appendChild(skillTag);
             });
             
-            quizContainer.innerHTML = `
-                <div class="question">
-                    <div class="question-number">Pertanyaan ${question.number}</div>
-                    <div class="question-text">${question.question}</div>
-                    <div class="options">
-                        ${optionsHTML}
-                    </div>
-                </div>
-                ${currentQuestion === questions.length - 1 ? 
-                    '<button class="result-btn" onclick="showResult()">Liat Hasil</button>' : 
-                    '<button class="result-btn" onclick="nextQuestion()">Lanjut</button>'}
-            `;
-            
-            updateProgress();
+            // Scroll ke bagian job display
+            document.querySelector('.job-display').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ===== FUNGSI PILIH JAWABAN =====
-        function selectOption(optionIndex) {
-            // Reset score untuk pertanyaan ini jika sudah pernah dipilih
-            if (selectedOptions[currentQuestion] !== undefined) {
-                const prevIndex = selectedOptions[currentQuestion];
-                const prevType = questions[currentQuestion].options[prevIndex].type;
-                answers[prevType]--;
+        // Fungsi untuk toggle FAQ
+        function toggleFAQ(index) {
+            const faqQuestion = document.querySelectorAll('.faq-question')[index];
+            const faqAnswer = document.querySelectorAll('.faq-answer')[index];
+            const icon = faqQuestion.querySelector('i');
+            
+            faqQuestion.classList.toggle('active');
+            faqAnswer.classList.toggle('show');
+            
+            if (faqAnswer.classList.contains('show')) {
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-plus');
             }
-            
-            selectedOptions[currentQuestion] = optionIndex;
-            
-            const question = questions[currentQuestion];
-            const selectedType = question.options[optionIndex].type;
-            
-            answers[selectedType]++;
-            
-            displayQuestion();
         }
 
-        // ===== FUNGSI LANJUT KE PERTANYAAN BERIKUTNYA =====
-        function nextQuestion() {
-            if (selectedOptions[currentQuestion] === undefined) {
-                alert("Pilih salah satu jawaban dulu ya!");
-                return;
+        // Fungsi untuk mencari job
+        function searchJobs() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const jobCards = document.querySelectorAll('.job-card');
+            const jobList = document.getElementById('jobList');
+            
+            let found = false;
+            
+            jobCards.forEach(card => {
+                const title = card.querySelector('.job-card-title').textContent.toLowerCase();
+                const description = card.querySelector('.job-card-desc').textContent.toLowerCase();
+                
+                if (title.includes(searchInput) || description.includes(searchInput)) {
+                    card.style.display = 'block';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Tampilkan pesan jika tidak ada hasil
+            let noResultsMsg = document.querySelector('.no-results');
+            if (!found && searchInput) {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.className = 'no-results';
+                    noResultsMsg.innerHTML = `<p>Tidak ditemukan profesi IT dengan kata kunci "${searchInput}"</p>`;
+                    jobList.appendChild(noResultsMsg);
+                }
+            } else if (noResultsMsg) {
+                noResultsMsg.remove();
             }
             
-            currentQuestion++;
-            displayQuestion();
-        }
-
-        // ===== FUNGSI TAMPILKAN HASIL =====
-        function showResult() {
-            if (selectedOptions[currentQuestion] === undefined) {
-                alert("Pilih jawaban untuk pertanyaan terakhir dulu ya!");
-                return;
-            }
-            
-            // Hitung tipe kepribadian dengan skor tertinggi
-            let maxScore = 0;
-            let personalityType = "programmer";
-            
-            for (const [type, score] of Object.entries(answers)) {
-                if (score > maxScore) {
-                    maxScore = score;
-                    personalityType = type;
+            // Jika input kosong, tampilkan semua job
+            if (!searchInput) {
+                jobCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                if (noResultsMsg) {
+                    noResultsMsg.remove();
                 }
             }
-            
-            const result = personalityTypes[personalityType];
-            const quizContainer = document.getElementById('quiz-container');
-            const resultContainer = document.getElementById('result-container');
-            
-            // Sembunyikan kuis, tampilkan hasil
-            quizContainer.style.display = 'none';
-            resultContainer.style.display = 'block';
-            
-            // Generate HTML untuk hasil
-            resultContainer.innerHTML = `
-                <div class="result-icon">${result.emoji}</div>
-                <div class="result-title">${result.title}</div>
-                <div class="result-subtitle">${result.subtitle}</div>
-                
-                <div class="result-desc">
-                    ${result.description}
-                    <br><br>
-                    <strong>💪 Kelebihan Kamu:</strong><br>
-                    ${result.strengths.map(strength => `• ${strength}`).join('<br>')}
-                </div>
-                
-                <div style="margin: 30px 0;">
-                    <h3 style="color: #666; margin-bottom: 15px;">📊 Skor Detail:</h3>
-                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                        <div style="padding: 15px; background: #f0f7ff; border-radius: 10px; min-width: 120px;">
-                            <div style="font-size: 2rem;">💻</div>
-                            <div style="font-weight: bold;">${answers.programmer}</div>
-                            <div style="color: #666;">Programmer</div>
-                        </div>
-                        <div style="padding: 15px; background: #fff0f0; border-radius: 10px; min-width: 120px;">
-                            <div style="font-size: 2rem;">🎨</div>
-                            <div style="font-weight: bold;">${answers.designer}</div>
-                            <div style="color: #666;">Designer</div>
-                        </div>
-                        <div style="padding: 15px; background: #f0fffd; border-radius: 10px; min-width: 120px;">
-                            <div style="font-size: 2rem;">📊</div>
-                            <div style="font-weight: bold;">${answers.analyst}</div>
-                            <div style="color: #666;">Analyst</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="restart-btn" onclick="restartQuiz()">Mulai Lagi</button>
-            `;
         }
-
-        // ===== FUNGSI RESTART KUIZ =====
-        function restartQuiz() {
-            // Reset semua variabel
-            currentQuestion = 0;
-            answers = { programmer: 0, designer: 0, analyst: 0 };
-            selectedOptions = [];
-            
-            const quizContainer = document.getElementById('quiz-container');
-            const resultContainer = document.getElementById('result-container');
-            
-            // Tampilkan kuis, sembunyikan hasil
-            resultContainer.style.display = 'none';
-            quizContainer.style.display = 'block';
-            
-            // Tampilkan pertanyaan pertama
-            displayQuestion();
-        }
-
-        // ===== INISIALISASI KUIZ =====
-        // Tampilkan pertanyaan pertama saat halaman dimuat
-        displayQuestion();
     </script>
 </body>
 </html>
